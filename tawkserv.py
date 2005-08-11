@@ -190,10 +190,6 @@ def do_say(sender, params):
 	except:	return
 	ch.say(chn, user, msg)
 
-def cb_node_create(node_id, type, owner):
-	if type == v.OBJECT:
-		print node_id, "is an object"
-
 def cb_node_destroy(node_id):
 	global the_users
 	try:	user = the_users[node_id]
@@ -202,7 +198,6 @@ def cb_node_destroy(node_id):
 	del the_users[user.id]
 
 def cb_o_method_group_create(node, group_id, name):
-	print "group", name, "in", node
 	global the_avatar, the_methods, the_users
 	if node == the_avatar:
 		the_methods = Methods(group_id)
@@ -213,15 +208,15 @@ def cb_o_method_group_create(node, group_id, name):
 		v.send_o_method_create(node, group_id, ~0, "join",  [("channel", v.O_METHOD_PTYPE_STRING)])
 		v.send_o_method_create(node, group_id, ~0, "leave", [("channel", v.O_METHOD_PTYPE_STRING)])
 		v.send_o_method_create(node, group_id, ~0, "say",   [("channel", v.O_METHOD_PTYPE_STRING), ("msg", v.O_METHOD_PTYPE_STRING)])
+		print "Initializing servlet methods"
 	else:
 		try:	u = the_users[node]
 		except:	u = None
 		if u != None:
-			print "That's a logged-in user"
+			print "Found tawk client, node", node
 			if name == "tawk-client":
 				u.methods = MethodGroup(group_id)
 				v.send_o_method_group_subscribe(node, group_id)
-				print " group created, subscribed"
 
 def cb_o_method_create(node, group_id, method_id, name, params):
 	global the_methods, the_avatar, the_users
@@ -240,10 +235,8 @@ def cb_o_method_create(node, group_id, method_id, name, params):
 			the_methods.say = Method(method_id, name, params)
 	else:
 		try:	u = the_users[node]
-		except:	u = None
-		if u != None:
-			print " that's a user method"
-			u.add_method(method_id, name, params)
+		except:	return
+		u.add_method(method_id, name, params)
 
 def cb_o_method_call(node, group_id, method_id, sender, params):
 	global the_avatar, the_methods
@@ -274,7 +267,6 @@ def cb_connect_accept(my_avatar, address, host_id):
 if __name__ == "__main__":
 	the_groups = []
 	v.callback_set(v.SEND_CONNECT_ACCEPT,		cb_connect_accept)
-	v.callback_set(v.SEND_NODE_CREATE,		cb_node_create)
 	v.callback_set(v.SEND_NODE_DESTROY,		cb_node_destroy)
 	v.callback_set(v.SEND_O_METHOD_GROUP_CREATE,	cb_o_method_group_create)
 	v.callback_set(v.SEND_O_METHOD_CREATE,		cb_o_method_create)
