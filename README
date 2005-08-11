@@ -1,0 +1,121 @@
+								2005-08-11
+								Emil Brink
+
+					TAWK
+
+1. INTRODUCTION
+This is "tawk", a very simple textual chat system for the Verse platform.
+
+
+2. INSTALLATION
+There are, at this point, no installation support for tawk. Just run it
+from wherever you have this directory located. Being very infant both
+in feature-set and general development maturity, tawk has no configuration
+or any other files it needs to access to run.
+
+The current version of tawk is implemented in Python, so you will need
+a Python interpreter, and the PyVerse bindings to Verse. See this web
+page: <http://users.pandora.be/blendix/verse/> for PyVerse.
+
+
+3. USAGE
+Being a client/server system on top of (or hosted by) the Verse environ-
+ment, tawk consists of two distinct programs: the server (tawkserv.py)
+and the client (tawk.py).
+
+3.1 The Servlet
+You need to first start the servlet, before any tawk client can be used
+to chat.
+
+Do this by simply issuing a command like so:
+
+~> ./tawkserv.py
+
+This will try to connect to a Verse server running on the same machine,
+i.e. "localhost". If you need to specify a different host address for the
+Verse server, do it like this:
+
+~> ./tawkserv.py -ip=verse.example.org
+
+You can optionally append a port number by separating it from the host
+name by a colon.
+
+3.2 The Client
+Once a server is running, you can connect tawk clients to start chatting.
+
+Again, this is done with a simple command like so:
+
+~> ./tawk.py
+
+This will connect to the Verse server running on localhost. If you need to
+specify the address of the Verse server, the syntax is the same as for the
+tawk server:
+
+~> ./tawk.py -ip=verse.example.org
+
+Once connected to the Verse server, the tawk client will look for the
+servlet. If it finds it, it will print a line like this:
+
+** Found tawk servlet, it's node 0
+
+Once you see this, you know that the tawk client is ready for use.
+
+3.2 Chat Commands
+Chatting with tawk is similiar to a very basic and cut-down version of
+IRC. There is the concept of "users", which are simply logged-in tawk
+clients, and "channels", which are named rooms in which you can talk.
+
+3.2.1 Logging In
+Before you can do anything in tawk, you need to log in. This is done
+through the "login" command, which takes a single argument called your
+nick, or nickname. Use it like so:
+
+login example
+
+This will attempt to log you in, using a nick of "example". Using cooler-
+sounding nicknames is permitted. If successful, the servlet will log you
+in, and reply with a line like this:
+
+#server server: Welcome to tawk, the Verse simple chat system, emil
+
+3.2.2 Joining a Channel
+To talk, you need to be in a channel. Channels are entered with the "join"
+command, like so:
+
+/join #tawk-praise
+
+This will attempt to enter the "tawk-praise" channel. If a channel does not
+exist, the servlet will create it when the first client joins.
+
+Starting the channel name with a hash character, as in IRC, is not required
+but still recommended as it makes it clear when referring to channels.
+
+If the join is successful, you will be switched to talking in the newly
+created channel. The client will print a line like this:
+
+(Making #tawk-praise the current channel)
+
+This is just to serve as a reminder to you, since it's hard to talk in
+multiple channels at once with the simple text-based interface of tawk.
+The servlet, in turn, will reply with a line like this:
+
+#tawk-praise server: users in #tawk-praise:['example']
+
+This tells you the current users in tawk-praise; it seems that there aren't
+that many users interested in praising tawk. :/
+
+3.2.3 Talking
+Once logged in and having joined a channel, just type to talk. The servlet
+will mirror the text to all users in the current channel, including you.
+
+3.2.4 Staying Informed
+There is a command called /info that can be used to query the servlet about
+the state of things. Currently, it understands the following arguments:
+
+channels
+	Lists the names of existing channels. Sample response:
+	#server server: channels:['#tawk-praise(1)']
+
+users
+	Lists the names of logged-in users. Sample response:
+	#server server: users:['emil(1)']
