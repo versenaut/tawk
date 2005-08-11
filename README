@@ -125,7 +125,11 @@ the state of things. Currently, it understands the following arguments:
 channels
 	Lists the names of existing channels. Sample response:
 	#server server: channels:['#tawk-praise(1)']
+	The number in parenthesis after the channel name is the
+	number of users in that channel.
 
 users
 	Lists the names of logged-in users. Sample response:
 	#server server: users:['emil(1)']
+	The number in parenthesis after the user name is the number
+	of channels that user is in.
