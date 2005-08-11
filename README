@@ -61,7 +61,7 @@ servlet. If it finds it, it will print a line like this:
 Once you see this, you know that the tawk client is ready for use.
 
 3.2 Chat Commands
-Chatting with tawk is similiar to a very basic and cut-down version of
+Chatting with tawk is similar to a very basic and cut-down version of
 IRC. There is the concept of "users", which are simply logged-in tawk
 clients, and "channels", which are named rooms in which you can talk.
 
@@ -76,7 +76,7 @@ This will attempt to log you in, using a nick of "example". Using cooler-
 sounding nicknames is permitted. If successful, the servlet will log you
 in, and reply with a line like this:
 
-#server server: Welcome to tawk, the Verse simple chat system, emil
+#server server: Welcome to tawk, the Verse simple chat system, example
 
 3.2.2 Joining a Channel
 To talk, you need to be in a channel. Channels are entered with the "join"
