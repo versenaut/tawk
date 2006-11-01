@@ -19,7 +19,7 @@ the_users    = {}
 class User:
 	def __init__(self, id, name):
 		self.id = long(id)
-	    	self.name = name
+		self.name = name
 		self.channels = []
 		self.methods = None
 		self.pending = True
@@ -137,7 +137,7 @@ def do_info(sender, params):
 	elif what == "users":
 		user.send_hear("#server", "server", "users:" + str([x.name+"("+str(len(x.channels))+")" for x in the_users.values()]))
 	elif what == "help":
-		user.send_hear("#server", "server", "commands: info, login, logout, join, leave")
+		user.send_hear("#server", "server", "commands: info, login, logout, join, leave, say")
 
 def do_login(sender, params):
 	global the_users
