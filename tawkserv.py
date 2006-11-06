@@ -279,7 +279,7 @@ if __name__ == "__main__":
 		elif a.startswith("-help"):
 			print "tawkserv version %s written by Emil Brink." % VERSION
 			print "Copyright (c) 2005 by PDC, KTH."
-			print "Usage: tawkserv.py [-server=IP[:HOST]] [-help] [-version]"
+			print "Usage: tawkserv.py [-ip=IP[:HOST]] [-help] [-version]"
 			sys.exit(1)
 		elif a.startswith("-version"):
 			print VERSION
