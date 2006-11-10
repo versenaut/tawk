@@ -1,4 +1,4 @@
-#!/bin/env python
+#!/usr/bin/env python
 #
 # Tawk server, a basic IRC-like chat for Verse.
 #
